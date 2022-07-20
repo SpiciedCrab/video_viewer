@@ -144,6 +144,8 @@ class VideoViewerController extends ChangeNotifier with WidgetsBindingObserver {
 
   bool get isDurationChanging => _isDurationChanging;
 
+  bool get isDraggingScreen => _isDraggingScreen;
+
   set isBuffering(bool value) {
     _isBuffering = value;
     notifyListeners();
