@@ -148,7 +148,8 @@ class _VideoViewerCoreState extends State<VideoViewerCore> {
   //FORWARD AND REWIND (DRAG HORIZONTAL)//
   //------------------------------------//
   void _forwardDragStart(Offset globalPosition) async {
-    final controller = _query.video(context);
+    VideoViewerController controller = _query.video(context);
+    controller.isDraggingProgressBar = true;
     await controller.pause();
     if (!controller.isShowingSettingsMenu) {
       Misc.delayed(50, () {
@@ -182,6 +183,7 @@ class _VideoViewerCoreState extends State<VideoViewerCore> {
     VideoViewerController controller = _query.video(context);
     await _videoSeekToNextSeconds(_forwardAndRewindSecondsAmount.value);
     controller.draggingDuration = null;
+    controller.isDraggingProgressBar = false;
     setState(() => _showForwardStatus = false);
   }
 
