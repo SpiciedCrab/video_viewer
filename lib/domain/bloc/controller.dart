@@ -55,6 +55,7 @@ class VideoViewerController extends ChangeNotifier with WidgetsBindingObserver {
       _isShowingSettingsMenu = false,
       _isShowingMainSettingsMenu = false,
       _isDraggingProgressBar = false,
+      _isDraggingScreen = false,
       _isShowingChat = false,
       _videoWasPlaying = false,
       _isChangingSource = false;
@@ -177,6 +178,11 @@ class VideoViewerController extends ChangeNotifier with WidgetsBindingObserver {
 
   set isDraggingProgressBar(bool value) {
     _isDraggingProgressBar = value;
+    notifyListeners();
+  }
+
+  set isDraggingScreen(bool value) {
+    _isDraggingScreen = value;
     notifyListeners();
   }
 
