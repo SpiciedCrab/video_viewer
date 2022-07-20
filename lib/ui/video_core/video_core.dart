@@ -162,8 +162,8 @@ class _VideoViewerCoreState extends State<VideoViewerCore> {
     }
   }
 
-  void _forwardDragUpdate(Offset globalPosition) {
-    final controller = _query.video(context);
+  void _forwardDragUpdate(Offset globalPosition) async {
+    VideoViewerController controller = _query.video(context);
     if (!controller.isShowingSettingsMenu) {
       final double diff = _horizontalDragStartOffset.dx - globalPosition.dx;
       final int duration = controller.duration.inSeconds;
@@ -172,12 +172,16 @@ class _VideoViewerCoreState extends State<VideoViewerCore> {
       final int relativePosition = position + seconds;
       if (relativePosition <= duration && relativePosition >= 0) {
         _forwardAndRewindSecondsAmount.value = seconds;
+        final int position = controller.video!.value.position.inSeconds;
+        controller.draggingDuration = Duration(seconds: position + seconds);
       }
     }
   }
 
   void _forwardDragEnd() async {
+    VideoViewerController controller = _query.video(context);
     await _videoSeekToNextSeconds(_forwardAndRewindSecondsAmount.value);
+    controller.draggingDuration = null;
     setState(() => _showForwardStatus = false);
   }
 

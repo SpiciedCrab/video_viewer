@@ -33,7 +33,7 @@ class VideoCoreForwardAndRewindBar extends StatelessWidget {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Text(
             query.durationFormatter(Duration(seconds: relativePosition)),
-            style: style.textStyle,
+            style: style.forwardAndRewindTextStyle,
           ),
           SizedBox(height: forwardStyle.spaceBeetweenBarAndText),
           SizedBox(

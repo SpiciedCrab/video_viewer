@@ -226,7 +226,7 @@ class App extends StatelessWidget {
           ),
         ),
       ),
-      home: const MainPage(),
+      home: MainPage(),
     );
   }
 }
@@ -235,7 +235,9 @@ class App extends StatelessWidget {
 //PAGES//
 //-----//
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+  MainPage({Key? key}) : super(key: key);
+
+  VideoViewerController _controller = VideoViewerController();
 
   @override
   Widget build(BuildContext context) {
@@ -259,13 +261,57 @@ class MainPage extends StatelessWidget {
         .toList();
 
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          padding: const Margin.vertical(kPadding),
-          physics: const BouncingScrollPhysics(),
-          children: children,
+      body: Container(child: FutureBuilder<Map<String, VideoSource>>(
+        future: VideoSource.fromM3u8PlaylistUrl(
+          "https://video-test.app.ikea.cn/2031543ebfa5463db9e04881d1a1ef9f/4c308a746c71a10b1f1b615ff9efbd87-ld.m3u8",
+          formatter: (quality) => quality == "Auto" ? "Automatic" : "${quality.split("x").last}p",
         ),
-      ),
+        builder: (_, data) {
+          if (data.hasData) {
+            return VideoViewer(
+              source: data.data!,
+              controller: _controller,
+              onFullscreenFixLandscape: true,
+              autoPlay: true,
+              style: VideoViewerStyle(
+                  transitions: Duration(milliseconds: 0),
+                  thumbnail: Center(child: Container()),
+                  // forwardAndRewindStyle: ForwardAndRewindStyle(
+                  //     bar: BarStyle.progress(height: 0),
+                  //     spaceBeetweenBarAndText: 0,
+                  //     ripple: Colors.transparent,
+                  //     backgroundColor: Colors.transparent
+                  // ),
+                  playAndPauseStyle: PlayAndPauseWidgetStyle(
+                    // play: Icon(Icons.play_arrow, color: Colors.white, size: 40,),
+                    //   pause: Icon(Icons.pause, color: Colors.white, size: 40,),
+                    //   replay: Icon(Icons.replay, color: Colors.white, size: 40,),
+                      background: Colors.black.withOpacity(0.5)
+                  ),
+                  loading: Container(),
+                  buffering: Container(),
+                  textStyle: TextStyle(fontSize: 0,),
+                  forwardAndRewindTextStyle: TextStyle(fontSize: 12,),
+                  progressBarStyle: ProgressBarStyle(
+                      fullScreen: Container(),
+                      paddingBeetwen: 12,
+                      bar: BarStyle.progress(color: Colors.white.withOpacity(0.5),
+                          height: 1,
+                          dotSize: 0,
+                          background: Colors.white.withOpacity(0.3))
+                  ),
+                  settingsStyle: SettingsMenuStyle(
+                    caption: Container(),
+                    settings: Container(),
+
+                  )
+              ),
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),),
     );
   }
 }

@@ -31,6 +31,7 @@ class VideoViewerStyle {
     Widget? loading,
     Widget? buffering,
     TextStyle? textStyle,
+    TextStyle? forwardAndRewindTextStyle,
     this.thumbnail,
     this.header,
     this.transitions = const Duration(milliseconds: 400),
@@ -58,6 +59,8 @@ class VideoViewerStyle {
         forwardAndRewindStyle =
             forwardAndRewindStyle ?? ForwardAndRewindStyle(),
         playAndPauseStyle = playAndPauseStyle ?? PlayAndPauseWidgetStyle(),
+        forwardAndRewindTextStyle = forwardAndRewindTextStyle ?? TextStyle(
+            color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
         textStyle = textStyle ??
             TextStyle(
                 color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold);
@@ -121,6 +124,7 @@ class VideoViewerStyle {
   ///  TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)
   ///```
   final TextStyle textStyle;
+  final TextStyle forwardAndRewindTextStyle;
 
   final Widget Function(Duration)? skipAdBuilder;
 
@@ -141,6 +145,7 @@ class VideoViewerStyle {
     Widget? buffering,
     Duration? transitions,
     TextStyle? textStyle,
+    TextStyle? forwardAndRewindTextStyle,
     Widget Function(Duration)? skipAdBuilder,
     Alignment? skipAdAlignment,
     VideoViewerChatStyle? chatStyle,
@@ -159,6 +164,7 @@ class VideoViewerStyle {
       buffering: buffering ?? this.buffering,
       transitions: transitions ?? this.transitions,
       textStyle: textStyle ?? this.textStyle,
+      forwardAndRewindTextStyle: forwardAndRewindTextStyle ?? this.textStyle,
       skipAdBuilder: skipAdBuilder ?? this.skipAdBuilder,
       skipAdAlignment: skipAdAlignment ?? this.skipAdAlignment,
       chatStyle: chatStyle ?? this.chatStyle,

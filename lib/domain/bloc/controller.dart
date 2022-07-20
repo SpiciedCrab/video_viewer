@@ -44,9 +44,11 @@ class VideoViewerController extends ChangeNotifier with WidgetsBindingObserver {
   List<VideoViewerAd>? _ads;
   Timer? _closeOverlayButtons;
   Duration? _duration;
+  Duration? _draggingDuration;
   bool _isBuffering = false,
       _isShowingOverlay = false,
       _isFullScreen = false,
+      _isDurationChanging = false,
       _isGoingToCloseOverlay = false,
       _isGoingToOpenOrCloseFullscreen = false,
       _isShowingThumbnail = true,
@@ -93,6 +95,10 @@ class VideoViewerController extends ChangeNotifier with WidgetsBindingObserver {
   bool get mounted => _mounted;
 
   Duration get position => video!.value.position - beginRange;
+  Duration get draggingDuration {
+    final value = _draggingDuration != null ?  (_draggingDuration!) : position;
+    return value;
+  }
 
   Duration get duration => _duration!;
 
@@ -135,10 +141,23 @@ class VideoViewerController extends ChangeNotifier with WidgetsBindingObserver {
 
   bool get isBuffering => _isBuffering;
 
+  bool get isDurationChanging => _isDurationChanging;
+
   set isBuffering(bool value) {
     _isBuffering = value;
     notifyListeners();
   }
+
+  set isDurationChanging(bool value) {
+    _isDurationChanging = value;
+    notifyListeners();
+  }
+
+  set draggingDuration(Duration? value) {
+    _draggingDuration = value;
+    notifyListeners();
+  }
+
 
   bool get isShowingSettingsMenu => _isShowingSettingsMenu;
 
