@@ -22,8 +22,7 @@ class VideoCoreForwardAndRewindBar extends StatelessWidget {
     final double height = forwardStyle.bar.height;
     final double width = forwardStyle.bar.width;
     final int relativePosition = position.inSeconds + seconds;
-
-    print(relativePosition);
+    
     return Center(
       child: Container(
         padding: forwardStyle.padding,
