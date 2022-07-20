@@ -286,15 +286,16 @@ class MainPage extends StatelessWidget {
                     // play: Icon(Icons.play_arrow, color: Colors.white, size: 40,),
                     //   pause: Icon(Icons.pause, color: Colors.white, size: 40,),
                     //   replay: Icon(Icons.replay, color: Colors.white, size: 40,),
-                      background: Colors.black.withOpacity(0.5)
+                      background: Colors.black.withOpacity(0.5),
                   ),
                   loading: Container(),
                   buffering: Container(),
                   textStyle: TextStyle(fontSize: 0,),
-                  forwardAndRewindTextStyle: TextStyle(fontSize: 12,),
+                  forwardAndRewindTextStyle: TextStyle(fontSize: 12, color: Colors.white),
                   progressBarStyle: ProgressBarStyle(
                       fullScreen: Container(),
                       paddingBeetwen: 12,
+                      onlyShowProgressBar: true,
                       bar: BarStyle.progress(color: Colors.white.withOpacity(0.5),
                           height: 1,
                           dotSize: 0,

@@ -5,6 +5,7 @@ class ProgressBarStyle {
   /// It is the style that will have all the icons and elements of the progress bar
   ProgressBarStyle({
     BarStyle? bar,
+    this.onlyShowProgressBar = false,
     Widget? fullScreen,
     Widget? fullScreenExit,
     Color? backgroundColor,
@@ -24,6 +25,8 @@ class ProgressBarStyle {
               color: Colors.white,
               size: 24,
             );
+
+  final bool onlyShowProgressBar;
 
   /// It is the padding that will have the icons and the progressBar
   final double paddingBeetwen;

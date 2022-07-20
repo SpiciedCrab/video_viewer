@@ -48,13 +48,16 @@ class _OverlayBottomState extends State<OverlayBottom> {
         ),
         GradientBackground(
           child: Row(children: [
-            PlayAndPause(
-              type: PlayAndPauseType.bottom,
-              padding: Margin.all(padding),
-            ),
+            if(!barStyle.onlyShowProgressBar)
+              PlayAndPause(
+                type: PlayAndPauseType.bottom,
+                padding: Margin.all(padding),
+              ),
             const Expanded(child: VideoProgressBar()),
-            SizedBox(width: padding),
-            ValueListenableBuilder(
+            if(!barStyle.onlyShowProgressBar)
+              SizedBox(width: padding),
+            if(!barStyle.onlyShowProgressBar)
+              ValueListenableBuilder(
               valueListenable: _showRemaingText,
               builder: (_, bool showText, __) => SplashCircularIcon(
                 padding: halfPadding,
@@ -70,7 +73,8 @@ class _OverlayBottomState extends State<OverlayBottom> {
                 ),
               ),
             ),
-            SplashCircularIcon(
+            if(!barStyle.onlyShowProgressBar)
+              SplashCircularIcon(
               padding: halfPadding,
               onTap: () {
                 controller.openSettingsMenu();
@@ -84,7 +88,8 @@ class _OverlayBottomState extends State<OverlayBottom> {
                 onTap: () => controller.isShowingChat = true,
                 child: style.chatStyle.chatIcon,
               ),
-            SplashCircularIcon(
+            if(!barStyle.onlyShowProgressBar)
+              SplashCircularIcon(
               padding: halfPadding + Margin.right(padding / 2),
               onTap: () => controller.openOrCloseFullscreen(),
               child:

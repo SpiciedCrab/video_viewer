@@ -23,6 +23,7 @@ class VideoCoreForwardAndRewindBar extends StatelessWidget {
     final double width = forwardStyle.bar.width;
     final int relativePosition = position.inSeconds + seconds;
 
+    print(relativePosition);
     return Center(
       child: Container(
         padding: forwardStyle.padding,
@@ -31,10 +32,18 @@ class VideoCoreForwardAndRewindBar extends StatelessWidget {
           borderRadius: forwardStyle.borderRadius,
         ),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Text(
-            query.durationFormatter(Duration(seconds: relativePosition)),
-            style: style.forwardAndRewindTextStyle,
-          ),
+          RichText(text: TextSpan(
+            children: [
+              TextSpan(
+                text: '${query.durationFormatter(Duration(seconds: relativePosition))} ',
+                style: style.forwardAndRewindTextStyle,
+              ),
+              TextSpan(
+                text: '/ ${query.durationFormatter(duration)}',
+                style: style.forwardAndRewindTextStyle.copyWith(color: style.forwardAndRewindTextStyle.color!.withOpacity(relativePosition > duration.inSeconds ? 1 : 0.5)),
+              ),
+            ]
+          )),
           SizedBox(height: forwardStyle.spaceBeetweenBarAndText),
           SizedBox(
             height: height,
